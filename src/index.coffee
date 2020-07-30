@@ -1,28 +1,28 @@
 # Configuration:
-#   HUBOT_WHITELIST
-#   HUBOT_WHITELIST_PATH
+#   HUBOT_ALLOWLIST
+#   HUBOT_ALLOWLIST_PATH
 
 reach = require('@hapi/hoek').reach
 path = require('path')
 
 module.exports = (robot) ->
 
-  # Establish whitelist
-  whitelist = []
-  if process.env.HUBOT_WHITELIST
-    whitelist = process.env.HUBOT_WHITELIST.split(',')
-  else if process.env.HUBOT_WHITELIST_PATH
-    whitelist = require(path.resolve(process.env.HUBOT_WHITELIST_PATH))
+  # Establish allowlist
+  allowlist = []
+  if process.env.HUBOT_ALLOWLIST
+    allowlist = process.env.HUBOT_ALLOWLIST.split(',')
+  else if process.env.HUBOT_ALLOWLIST_PATH
+    allowlist = require(path.resolve(process.env.HUBOT_ALLOWLIST_PATH))
 
-  unless Array.isArray(whitelist)
-    robot.logger.error 'whitelist is not an array!'
+  unless Array.isArray(allowlist)
+    robot.logger.error 'allowlist is not an array!'
 
   robot.receiveMiddleware (context, next, done) ->
     # Get channel name from client's cache (https://github.com/slackapi/hubot-slack/issues/328)
     channelName = robot.adapter.client.rtm.dataStore.getChannelGroupOrDMById(reach(context, 'response.envelope.room')).name
 
-    # Unless the room is in the whitelist
-    unless channelName in whitelist
+    # Unless the room is in the allowlist
+    unless channelName in allowlist
       # We're done
       context.response.message.finish()
       done()

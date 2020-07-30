@@ -1,4 +1,4 @@
-## Hubot Slack Whitelist
+## Hubot Slack Allowlist
 
 Don't want `#general` to trigger your bot?
 
@@ -10,7 +10,7 @@ Originally based on https://github.com/michaeljacobdavis/hubot-slack-whitelist-m
 
 **Install**
 ```
-npm install --save hubot-slack-whitelist-middleware
+npm install --save hubot-slack-allowlist-middleware
 ```
 
 **Register**
@@ -18,16 +18,16 @@ npm install --save hubot-slack-whitelist-middleware
 In `external-scripts.json` add
 
 ```
-"hubot-slack-whitelist-middleware"
+"hubot-slack-allowlist-middleware"
 ```
 
 
-This is meant for slack, but will work with any [adapter](https://github.com/github/hubot/blob/master/docs/adapters.md) that exposes the current channel via `context.response.envelope.room`.
+This is meant for Slack, but might work with any [adapter](https://github.com/github/hubot/blob/master/docs/adapters.md) that exposes the current channel via `context.response.envelope.room`.
 
 ## Environment Variables
-There are two ways to set a whitelist:
+There are two ways to set a allowlist:
 
 Environment Variable | Description | Example
 --- | --- | ---
-`HUBOT_WHITELIST` | A comma separated list (no spaces). | `random,general`
-`HUBOT_WHITELIST_PATH` | Set the path (relative to your hubot directory) to a `json`/`js`/`coffee` file that returns an array of whitelisted channels. | `whitelist.json`
+`HUBOT_ALLOWLIST` | A comma separated list (no spaces). | `random,general`
+`HUBOT_ALLOWLIST_PATH` | Set the path (relative to your hubot directory) to a `json`/`js`/`coffee` file that returns an array of allowlisted channels. | `allowlist.json`
