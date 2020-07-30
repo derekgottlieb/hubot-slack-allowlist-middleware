@@ -4,6 +4,8 @@ Don't want `#general` to trigger your bot?
 
 **Use this.**
 
+Originally based on https://github.com/michaeljacobdavis/hubot-slack-whitelist-middleware
+
 ## How to use
 
 **Install**
