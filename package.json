@@ -10,7 +10,7 @@
   "main": "index.coffee",
   "license": "MIT",
   "dependencies": {
-    "hoek": "^2.14.0"
+    "@hapi/hoek": "^9.0.4"
   },
   "devDependencies": {},
   "repository": {
