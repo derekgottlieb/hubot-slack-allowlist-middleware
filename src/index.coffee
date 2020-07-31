@@ -18,13 +18,21 @@ module.exports = (robot) ->
     robot.logger.error 'allowlist is not an array!'
 
   robot.receiveMiddleware (context, next, done) ->
-    # Get channel name from client's cache (https://github.com/slackapi/hubot-slack/issues/328)
-    channelName = robot.adapter.client.rtm.dataStore.getChannelGroupOrDMById(reach(context, 'response.envelope.room')).name
+    # Get channel name from client's cache.
+    # See https://github.com/slackapi/hubot-slack/issues/328.
+    #
+    # Slack presence messages make this messy since they won't have a
+    # channel name associated with them.
+    channelId = reach(context, 'response.envelope.room')
+    channelGroup = robot.adapter.client.rtm.dataStore.getChannelGroupOrDMById(channelId)
+    if typeof channelGroup isnt 'undefined'
+      channelName = channelGroup.name
 
     # Unless the room is in the allowlist
     unless channelName in allowlist
-      # We're done
+      # Channel not in allowlist, bail out
       context.response.message.finish()
       done()
     else
+      # Channel in allowlist
       next(done)
